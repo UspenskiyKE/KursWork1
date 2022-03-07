@@ -2,10 +2,11 @@ package com.company;
 
 public class Main {
 
+   public static Employee[] employees=new Employee[10];
+
+
     public static void main(String[] args) {
 	// write your code here
-        Employee[] employees=new Employee[10];
-
         Employee worker1=new Employee("Иван","Иванович", "Иванов","1",40000);
         employees[0]=worker1;
         Employee worker2=new Employee("Иван","Алексеевич", "Петров","1",38800);
@@ -27,73 +28,86 @@ public class Main {
         Employee worker10=new Employee("Геннадий","Владимирович", "Свиридов","2",47000);
         employees[9]=worker10;
 
-        EmployeeList(employees);
+
+
+
+
+        employeeList(employees);
         System.out.println();
 
-        double salaryExpenses=MonthSalaryExpenses(employees);
+        double salaryExpenses=monthSalaryExpenses(employees);
         System.out.println("Совокупные затраты на зарплату в месяц: "+salaryExpenses+" рублей.");
         System.out.println();
 
-        MinSalaryEmployee(employees);
+        minSalaryEmployee(employees);
         System.out.println();
 
-        MaxSalaryEmployee(employees);
+        maxSalaryEmployee(employees);
         System.out.println();
 
-        double arithmeticMean=ArithmeticMeanSalary(employees);
+        double arithmeticMean=arithmeticMeanSalary(employees);
         System.out.println("Средняя (по сотрудникам) зарплата в месяц: "+arithmeticMean+" рублей.");
         System.out.println();
 
-        AllEmployeesFio(employees);
+        allEmployeesFullNames(employees);
 
 
     }
-    public static void EmployeeList(Employee[] employeeList) {
-        System.out.println("Код сотрудника:  "+"Фамилия:  "+"Имя:  "+"Отчество:  "+"Отдел:  "+"Зарплата:");
+    public static String employeeListHeading() {
+        return "Код сотрудника:  "+"Фамилия:  "+"Имя:  "+"Отчество:  "+"Отдел:  "+"Зарплата:";
+    }
+
+
+    public static void employeeList(Employee[] employeeList) {
+        System.out.println(employeeListHeading());
         for (int i = 0; i < employeeList.length; i++) {
-            System.out.println( employeeList[i].getId()+"  "+employeeList[i].getLastName()+"  "+employeeList[i].getFirstName()+"  "+employeeList[i].getMiddleName()+"  "+employeeList[i].getDepartment()+"  "+employeeList[i].getSalary());
+            System.out.println(employeeList[i]);
         }
 
     }
-    public static double MonthSalaryExpenses(Employee[] employeeList) {
-        double s=0;
+
+    public static double monthSalaryExpenses(Employee[] employeeList) {
+        double totalSalary=0;
         for (int i = 0; i < employeeList.length; i++) {
-            s+=employeeList[i].getSalary();
+            totalSalary+=employeeList[i].getSalary();
         }
-        return s;
+        return totalSalary;
     }
-    public static void MinSalaryEmployee(Employee[] employeeList) {
+
+    public static void minSalaryEmployee(Employee[] employeeList) {
         double minSalary=employeeList[0].getSalary();
         String minSalaryFIO="";
         for (int i = 0; i < employeeList.length; i++) {
             if (employeeList[i].getSalary() < minSalary) {
                 minSalary=employeeList[i].getSalary();
-                minSalaryFIO=employeeList[i].getLastName()+" "+employeeList[i].getFirstName()+" "+employeeList[i].getMiddleName();
+                minSalaryFIO=employeeList[i].getFullName();
             }
         }
-       System.out.println(" Сотрудник с минимадьной зарплатой: "+minSalaryFIO);
+       System.out.println("Сотрудник с минимальной зарплатой: "+minSalaryFIO);
     }
-    public static void MaxSalaryEmployee(Employee[] employeeList) {
+
+    public static void maxSalaryEmployee(Employee[] employeeList) {
         double maxSalary=employeeList[0].getSalary();
         String maxSalaryFIO="";
         for (int i = 0; i < employeeList.length; i++) {
             if (employeeList[i].getSalary() >maxSalary) {
                 maxSalary=employeeList[i].getSalary();
-                maxSalaryFIO=employeeList[i].getLastName()+" "+employeeList[i].getFirstName()+" "+employeeList[i].getMiddleName();
+                maxSalaryFIO=employeeList[i].getFullName();
             }
         }
-        System.out.println(" Сотрудник с максимальной зарплатой: "+maxSalaryFIO);
+        System.out.println("Сотрудник с максимальной зарплатой: "+maxSalaryFIO);
     }
-    public static double ArithmeticMeanSalary(Employee[] employeeList) {
-        double ams=MonthSalaryExpenses(employeeList)/ employeeList.length;
-        return ams;
+
+    public static double arithmeticMeanSalary(Employee[] employeeList) {
+        return monthSalaryExpenses(employeeList)/ employeeList.length;
     }
-    public static void AllEmployeesFio(Employee[] employeeList) {
+
+    public static void allEmployeesFullNames(Employee[] employeeList) {
         System.out.println("Список сотрудников организации: ");
-        String FIO="";
+        String fullName="";
         for (int i = 0; i < employeeList.length; i++) {
-            FIO=employeeList[i].getLastName()+" "+employeeList[i].getFirstName()+" "+employeeList[i].getMiddleName();
-            System.out.println(FIO);
+            fullName=employeeList[i].getLastName()+" "+employeeList[i].getFirstName()+" "+employeeList[i].getMiddleName();
+            System.out.println(fullName);
         }
 
     }
